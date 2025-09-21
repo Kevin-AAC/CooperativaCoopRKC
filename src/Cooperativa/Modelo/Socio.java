@@ -37,5 +37,9 @@ public class Socio {
     public void setListaCuenta(ArrayList<String> listaCuenta) {
         this.listaCuenta = listaCuenta;
     }
+    @Override
+    public String toString(){
+        return "Socio{nombre='"+nombre+"',cedula='"+cedula+"'}";
+    }
 }
 
