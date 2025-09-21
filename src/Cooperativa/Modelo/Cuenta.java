@@ -25,4 +25,8 @@ public class Cuenta {
             saldo -= monto;
         }
     }
+    public double getSaldo(){
+        return  saldo;
+    }
+
 }
