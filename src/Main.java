@@ -3,18 +3,39 @@ import Cooperativa.Modelo.Cuenta;
 import Cooperativa.Modelo.CuentaAhorros;
 import Cooperativa.Modelo.Socio;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public static void main(String[] args) {
-         Cooperativa cooperativa = new Cooperativa("Coo pollitos en fuga","calle siempre viva avenida avestruz","123456");
-         Socio socio1 = new Socio ("Carpintero","9876543");
-         Cuenta cuenta = new CuentaAhorros("12345678",1000.0,"A");
-         cooperativa.agregarSocio(socio1);
+         Cooperativa cooperativa = new Cooperativa("CooKFC","avenida avestruz","007");
 
-         System.out.println("Cooperativa info: " + cooperativa.getSocios());
-         System.out.println("Socio el pollo: " + socio1.getNombre());
-         System.out.println("Cuenta del pollo: " + cuenta.getSaldo());
+         Socio socio1 = new Socio ("laura","9876543");
+         Socio socio2 = new Socio ("Carlos","57532545");
+         Socio socio3 = new Socio("Jesus","00120200");
+
+
+         Cuenta cuenta = new CuentaAhorros("001",1000.0,"Ahorros");
+         Cuenta cuenta1 =new Cuenta("002",1000000,"Corriente");
+         Cuenta cuenta2 = new CuentaAhorros("123",230.000,"Ahorros");
+         Cuenta cuenta3 = new CuentaAhorros("004",750.000,"Ahorros");
+
+
+         socio1.agregarCuenta(cuenta);
+         socio1.agregarCuenta(cuenta2);
+         socio2.agregarCuenta(cuenta1);
+         socio3.agregarCuenta(cuenta3);
+
+         cooperativa.agregarSocio(socio1);
+         cooperativa.agregarSocio(socio2);
+         cooperativa.agregarSocio(socio3);
+
+         cooperativa.getSocios().stream().map(Socio::getNombre).forEach(System.out::println);
+
+
+         System.out.println("Socio : " + socio1.getNombre());
+         socio1.mostrarCuenta();
+         System.out.println("Socio : " + socio2.getNombre());
+         socio2.mostrarCuenta();
+
 
 
 
