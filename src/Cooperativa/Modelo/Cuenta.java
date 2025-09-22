@@ -27,8 +27,12 @@ public class Cuenta {
             saldo -= monto;
         }
     }
+
     public double getSaldo(){
         return  saldo;
+    }
+    public String getNumeroCuenta() {
+        return numeroCuenta;
     }
     @Override
     public String toString(){
