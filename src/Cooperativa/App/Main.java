@@ -1,3 +1,5 @@
+package Cooperativa.App;
+
 import Cooperativa.Modelo.Cooperativa;
 import Cooperativa.Modelo.Cuenta;
 import Cooperativa.Modelo.CuentaAhorros;
