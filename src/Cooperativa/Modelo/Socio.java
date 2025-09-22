@@ -1,13 +1,12 @@
 package Cooperativa.Modelo;
 
-import java.awt.desktop.OpenURIEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Socio {
     private String nombre;
     private String cedula;
-    private ArrayList<Cuenta> listaCuenta = new ArrayList<>(); //tipo cuenta
+    private ArrayList<Cuenta> listaCuenta = new ArrayList<>();
 
     public Socio (String nombre, String cedula){
         this.nombre = nombre;
@@ -20,11 +19,10 @@ public class Socio {
     }
 
     public void mostrarCuenta(){
-        for (Cuenta c: listaCuenta){
+        for (Cuenta c: listaCuenta) {
             System.out.println(c);
         }
-    }
-
+}
     public String getNombre() {
         return nombre;
     }

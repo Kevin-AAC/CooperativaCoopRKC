@@ -23,4 +23,17 @@ public class Cooperativa {
     public List<Socio> getSocios(){
         return socios;
     }
+
+
+    @Override
+    public String toString() {
+        return "Cooperativa" +
+                "nombre='" + nombre + '\'' +
+                ", direccion='" + direccion + '\'' +
+                ", codigo='" + codigo + '\'' +
+                ", socios=" + socios
+                ;
+    }
+
 }
+

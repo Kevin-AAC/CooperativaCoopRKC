@@ -2,8 +2,6 @@ package Cooperativa.Transacciones;
 
 import Cooperativa.Modelo.Cuenta;
 
-import javax.print.attribute.standard.ReferenceUriSchemesSupported;
-
 public class Deposito implements Transaccion{
     private double monto;
     private Cuenta cuentaDestino;
