@@ -3,7 +3,6 @@ import Cooperativa.Modelo.Cuenta;
 import Cooperativa.Modelo.CuentaAhorros;
 import Cooperativa.Modelo.Socio;
 import Cooperativa.Transacciones.Deposito;
-import Cooperativa.Transacciones.Retiro;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -25,16 +24,15 @@ public class Main {
         Cuenta cuenta4 = new Cuenta("12345678", 1000.0, "Corriente");
 
 
-        System.out.println("======================");
-        Retiro retiro = new Retiro(50000,cuenta1,"24/09/2025");
-        retiro.ejecutar();
+        System.out.println("==========Depositar============");
         Deposito deposito = new Deposito(350000,cuenta1,"23/09/2025");
         deposito.ejecutar();
 
         Deposito deposito2 = new Deposito(150000,cuenta2,"23/09/2025");
         deposito2.ejecutar();
         System.out.println(deposito);
-        System.out.println("======================");
+        System.out.println("=========Agregar Cuenta a Socios=============");
+        socio1.agregarCuenta(cuenta);
         socio1.agregarCuenta(cuenta);
         socio1.agregarCuenta(cuenta2);
         socio2.agregarCuenta(cuenta1);
