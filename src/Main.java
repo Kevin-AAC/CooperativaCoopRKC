@@ -49,8 +49,10 @@ public class Main {
         cooperativa.agregarSocio(socio4);
         System.out.println("===========Lista Socios==========");
         cooperativa.getSocios().stream().map(Socio::getNombre).forEach(System.out::println);
-        System.out.println("======================");
+        System.out.println("===========Filtro de Cuentas >3000===========");
+        cooperativa.getCuentas().stream().filter(cuentas -> cuentas.getSaldo()>3000).forEach(System.out::println);
 
+        System.out.println("======================");
         System.out.println("Socio : " + socio1.getNombre());
         socio1.mostrarCuenta();
 

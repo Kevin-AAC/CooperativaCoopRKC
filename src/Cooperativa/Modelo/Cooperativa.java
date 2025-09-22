@@ -24,6 +24,10 @@ public class Cooperativa {
         return socios;
     }
 
+     public List<Cuenta> getCuentas(){
+        return socios.stream().flatMap(cuentas -> cuentas.getListaCuenta().stream()).toList();
+     }
+
 
     @Override
     public String toString() {
