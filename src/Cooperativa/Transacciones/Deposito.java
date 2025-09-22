@@ -26,6 +26,6 @@ public class Deposito implements Transaccion{
 
     @Override
     public String toString(){
-        return "Deposito:"+monto+"el"+ fecha;
+        return "Deposito: "+monto+" el: "+ fecha;
     }
 }
