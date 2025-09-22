@@ -1,17 +1,28 @@
 package Cooperativa.Modelo;
 
+import java.awt.desktop.OpenURIEvent;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Socio {
     private String nombre;
     private String cedula;
-    private ArrayList<String> listaCuenta = new ArrayList<>();
+    private ArrayList<Cuenta> listaCuenta = new ArrayList<>(); //tipo cuenta
 
     public Socio (String nombre, String cedula){
         this.nombre = nombre;
         this.cedula = cedula;
         this.listaCuenta = new ArrayList<>();
+    }
+
+    public void agregarCuenta(Cuenta cuenta){// agregar cuentas del socio a lista de cuentas
+        listaCuenta.add(cuenta);
+    }
+
+    public void mostrarCuenta(){
+        for (Cuenta c: listaCuenta){
+            System.out.println(c);
+        }
     }
 
     public String getNombre() {
@@ -30,11 +41,11 @@ public class Socio {
         this.cedula = cedula;
     }
 
-    public ArrayList<String> getListaCuenta() {
+    public ArrayList<Cuenta> getListaCuenta() {
         return listaCuenta;
     }
 
-    public void setListaCuenta(ArrayList<String> listaCuenta) {
+    public void setListaCuenta(ArrayList<Cuenta> listaCuenta) {
         this.listaCuenta = listaCuenta;
     }
     @Override
