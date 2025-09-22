@@ -15,7 +15,16 @@ public class Socio {
     }
 
     public void agregarCuenta(Cuenta cuenta){// agregar cuentas del socio a lista de cuentas
+        //boolean existe = listaCuenta.stream().anyMatch(c -> c.getNumeroCuenta().equals(cuenta.getNumeroCuenta()));
+        for(Cuenta c : listaCuenta){
+            if(c.getNumeroCuenta().equals(cuenta.getNumeroCuenta())) {
+                System.out.println("❌ Error: la cuenta: " + "[" + cuenta.getNumeroCuenta() + "]" + " ya existe para este socio.");
+                return;
+            }
+        }
         listaCuenta.add(cuenta);
+        System.out.println("✅ Cuenta " + cuenta.getNumeroCuenta() + " agregada correctamente.");
+
     }
 
     public void mostrarCuenta(){
