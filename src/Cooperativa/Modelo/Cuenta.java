@@ -14,24 +14,31 @@ public class Cuenta {
         this.tipo = tipo;
     }
 
-    public void deposito(double monto){
+    public void deposito(double monto) {
+
         saldo += monto;
 
     }
 
-    public void retirar(double monto){
-        if(saldo < monto){
+    public void retirar(double monto) {
+        if (saldo < monto) {
             System.out.println("Saldo Insuficiente");
-        }else {
+        } else {
             System.out.println("Retiro Exitoso");
             saldo -= monto;
         }
     }
-    public double getSaldo(){
-        return  saldo;
+
+    public double getSaldo() {
+        return saldo;
     }
+
+    public void setSaldo(double saldo) {
+        this.saldo = saldo;
+    }
+
     @Override
-    public String toString(){
+    public String toString() {
         return "Cuenta{" +
                 "numeroCuenta='" + numeroCuenta + '\'' +
                 ", saldo=" + saldo +
