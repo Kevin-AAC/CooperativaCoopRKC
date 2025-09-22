@@ -1,5 +1,7 @@
 package Cooperativa.Modelo;
 
+import javax.print.attribute.standard.ReferenceUriSchemesSupported;
+
 public class Cuenta {
     private String numeroCuenta;
     private double saldo;
@@ -27,6 +29,14 @@ public class Cuenta {
     }
     public double getSaldo(){
         return  saldo;
+    }
+    @Override
+    public String toString(){
+        return "Cuenta{" +
+                "numeroCuenta='" + numeroCuenta + '\'' +
+                ", saldo=" + saldo +
+                ", tipo='" + tipo + '\'' +
+                '}';
     }
 
 }
