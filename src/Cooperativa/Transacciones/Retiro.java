@@ -2,6 +2,8 @@ package Cooperativa.Transacciones;
 
 import Cooperativa.Modelo.Cuenta;
 
+import java.awt.print.Printable;
+
 public class Retiro implements Transaccion {
     private double montoAretirar;
     private Cuenta cuentaAretirar;
@@ -15,10 +17,7 @@ public class Retiro implements Transaccion {
     }
     @Override
     public void ejecutar (){
-      if(cuentaAretirar.getSaldo() >= montoAretirar){
-          cuentaAretirar.setSaldo(cuentaAretirar.getSaldo()-montoAretirar);
-
-      }
+        cuentaAretirar.retirar(montoAretirar);
     }
     @Override
     public double getMonto(){
