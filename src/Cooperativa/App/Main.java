@@ -22,8 +22,8 @@ public class Main {
 
         Cuenta cuenta = new CuentaAhorros("001", 1000.0, "Ahorros");
         Cuenta cuenta1 = new Cuenta("002", 1000000, "Corriente");
-        Cuenta cuenta2 = new CuentaAhorros("123", 230.000, "Ahorros");
-        Cuenta cuenta3 = new CuentaAhorros("004", 750.000, "Ahorros");
+        Cuenta cuenta2 = new CuentaAhorros("123", 2300.0, "Ahorros");
+        Cuenta cuenta3 = new CuentaAhorros("004", 750000.0, "Ahorros");
         Cuenta cuenta4 = new Cuenta("12345678", 1000.0, "Corriente");
         System.out.println("==========Retirar============");
         Retiro retirar = new Retiro (5000000, cuenta1,"24/09/2025");
@@ -38,7 +38,7 @@ public class Main {
         System.out.println(deposito);
         System.out.println("=========Agregar Cuenta a Socios=============");
         socio1.agregarCuenta(cuenta);
-        socio1.agregarCuenta(cuenta);
+        socio1.agregarCuenta(cuenta);//duplicado
         socio1.agregarCuenta(cuenta2);
         socio2.agregarCuenta(cuenta1);
         socio3.agregarCuenta(cuenta3);
@@ -49,19 +49,26 @@ public class Main {
         cooperativa.agregarSocio(socio2);
         cooperativa.agregarSocio(socio3);
         cooperativa.agregarSocio(socio4);
-        System.out.println("===========Lista Socios==========");
+        System.out.println("📋 Socios registrados:");
         cooperativa.getSocios().stream().map(Socio::getNombre).forEach(System.out::println);
-        System.out.println("===========Filtro de Cuentas >3000===========");
-        cooperativa.getCuentas().stream().filter(cuentas -> cuentas.getSaldo()>3000).forEach(System.out::println);
+        System.out.println("===========Filtro de Cuentas ===========");
+        cooperativa.getCuentas().stream().filter(cuentas -> cuentas.getSaldo()>500000).map(cuentas -> String.format( "💳 Cuenta Nº %s | Saldo: $%,.2f",cuentas.getNumeroCuenta(),cuentas.getSaldo())).forEach(System.out::println);
+        System.out.println("===========Saldo Total Cooperativa ===========");
+        double saldoCooperativa =cooperativa.getSocios().stream().flatMap(socio -> socio.getListaCuenta().stream()).map(Cuenta::getSaldo).reduce(0.0,(a,b)->a+b);
+        System.out.println("\n💹 Suma total de saldos: " + saldoCooperativa);
+
 
         System.out.println("======================");
-        System.out.println("Socio : " + socio1.getNombre());
-        socio1.mostrarCuenta();
-
-        System.out.println("Socio : " + socio2.getNombre());
-        socio2.mostrarCuenta();
-
         System.out.println("Cooperativa info: " + cooperativa);
+
+//
+//        System.out.println("Socio : " + socio1.getNombre());
+//        socio1.mostrarCuenta();
+//
+//        System.out.println("Socio : " + socio2.getNombre());
+//        socio2.mostrarCuenta();
+//
+//
 
 
     }
