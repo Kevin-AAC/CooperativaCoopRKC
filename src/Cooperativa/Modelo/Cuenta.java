@@ -20,12 +20,28 @@ public class Cuenta {
     }
 
     public void retirar(double monto){
-        if(saldo < monto){
-            System.out.println("Saldo Insuficiente");
-        }else {
-            System.out.println("Retiro Exitoso");
-            saldo -= monto;
-        }
+      try {
+          if(monto <= 0){
+              throw new IllegalArgumentException("Cantitad minima a retirar debe ser 10.000");
+              //System.out.println("Saldo Insuficiente");
+          }
+         /* else {
+              System.out.println("Retiro Exitoso");
+              saldo -= monto;
+          }*/
+          if (monto > saldo){
+              throw new IllegalArgumentException("Saldo insuficiente");
+          }
+          saldo -= monto;
+          System.out.println("Retito exitoso" + monto);
+      } catch (IllegalArgumentException e){
+          System.out.println("❌ Ha ocurrido un error verifique la informacion: " + e.getMessage());
+
+      } catch (Exception e){
+          System.out.println("❌ Ha ocurrido un error verifique su saldo: " + e.getMessage());
+      }
+
+
     }
 
     public double getSaldo(){
