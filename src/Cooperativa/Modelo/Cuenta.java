@@ -33,7 +33,7 @@ public class Cuenta {
               throw new IllegalArgumentException("Saldo insuficiente");
           }
           saldo -= monto;
-          System.out.println("Retito exitoso" + monto);
+          System.out.println("Retito exitoso " + monto);
       } catch (IllegalArgumentException e){
           System.out.println("❌ Ha ocurrido un error verifique la informacion: " + e.getMessage());
 
