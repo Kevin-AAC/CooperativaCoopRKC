@@ -1,7 +1,5 @@
 package Cooperativa.Modelo;
 
-import javax.print.attribute.standard.ReferenceUriSchemesSupported;
-
 public class Cuenta {
     private String numeroCuenta;
     private double saldo;
@@ -21,14 +19,9 @@ public class Cuenta {
 
     public void retirar(double monto){
       try {
-          if(monto <= 0){
+          if(monto <= 10000){
               throw new IllegalArgumentException("Cantitad minima a retirar debe ser 10.000");
-              //System.out.println("Saldo Insuficiente");
           }
-         /* else {
-              System.out.println("Retiro Exitoso");
-              saldo -= monto;
-          }*/
           if (monto > saldo){
               throw new IllegalArgumentException("Saldo insuficiente");
           }

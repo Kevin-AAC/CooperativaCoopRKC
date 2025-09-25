@@ -20,12 +20,6 @@ public class Socio {
             System.out.println("Error: la cuenta: " + "[" + cuenta.getNumeroCuenta() + "]" + " ya existe para este socio.");
             return;
         }
-//        for(Cuenta c : listaCuenta){
-//            if(c.getNumeroCuenta().equals(cuenta.getNumeroCuenta())) {
-//                System.out.println("❌ Error: la cuenta: " + "[" + cuenta.getNumeroCuenta() + "]" + " ya existe para este socio.");
-//                return;
-//            }
-//        }
         listaCuenta.add(cuenta);
         System.out.println("✅ Cuenta " + cuenta.getNumeroCuenta() + " agregada correctamente.");
 

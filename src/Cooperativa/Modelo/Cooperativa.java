@@ -7,9 +7,7 @@ public class Cooperativa {
     private String nombre;
     private String direccion;
     private String codigo;
-
     private List<Socio> socios = new ArrayList<>();
-
     public Cooperativa(String nombre, String direccion, String codigo) {
         this.nombre = nombre;
         this.direccion = direccion;
@@ -27,7 +25,6 @@ public class Cooperativa {
      public List<Cuenta> getCuentas(){
         return socios.stream().flatMap(cuentas -> cuentas.getListaCuenta().stream()).toList();
      }
-
 
     @Override
     public String toString() {
