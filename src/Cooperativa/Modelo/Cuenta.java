@@ -14,6 +14,7 @@ public class Cuenta {
 
     public void deposito(double monto){
         saldo += monto;
+        System.out.println("Deposito exitoso");
 
     }
 
