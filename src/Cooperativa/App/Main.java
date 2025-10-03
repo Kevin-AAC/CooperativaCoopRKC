@@ -7,16 +7,16 @@ import Cooperativa.Modelo.Socio;
 import Cooperativa.Transacciones.Deposito;
 import Cooperativa.Transacciones.Retiro;
 
-import javax.swing.text.AbstractDocument;
-import java.awt.print.Printable;
+
 import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
-    public static void main(String[] args) {
+    static Scanner scanner = new Scanner(System.in);
+    static Cooperativa cooperativa = new Cooperativa("COOPRKC", "avenida avestruz", "007");
 
-        Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
         int opcion=0;
 
         while(opcion != 4){
@@ -28,20 +28,20 @@ public class Main {
                     agregarSocio();
                     break;
                 case 2:
-                    crearCuenta();
+                    //crearCuenta();
                     break;
                 case  3:
-                    realizarRetiro();
+                    //realizarRetiro();
                     break;
                 case 4:
-                    realizarDeposito();
+                    //realizarDeposito();
                 case 5:
 
             }
         }
 
 
-        Cooperativa cooperativa = new Cooperativa("COOPRKC", "avenida avestruz", "007");
+
 
         Socio socio1 = new Socio("Carpintero", "9876543");
         Socio socio2 = new Socio("laura", "9876543");
@@ -105,10 +105,27 @@ public class Main {
     static void mostrarMenu(){
         System.out.println("=== Cooperativa RKC ===");
         System.out.println("1. Ingresar Socio");
-        System.out.println("2. Prestar libro");
-        System.out.println("3. Devolver libro");
-        System.out.println("4. Salir");
+        System.out.println("2. Crear Cuenta");
+        System.out.println("3. Realizar Retiro");
+        System.out.println("4. Realizar Deposito");
         System.out.print("Selecciona una opción: ");
     }
+    static void agregarSocio(){
+        System.out.println("Ingrese el nombre del socio");
+        String nombre = scanner.nextLine();
+        System.out.println("Ingrese la cédula del socio");
+        String cedula = scanner.nextLine();
+        Socio nuevoSocio = new Socio(nombre,cedula);
+        cooperativa.agregarSocio(nuevoSocio);
+        System.out.println("Socio agregado exitosamente: " + nuevoSocio);
+    }
+
 
 }
+/*
+        Socio socio1 = new Socio("Carpintero", "9876543");
+        Socio socio2 = new Socio("laura", "9876543");
+        Socio socio3 = new Socio("Carlos", "57532545");
+        Socio socio4 = new Socio("Jesus", "00120200");
+
+ */
