@@ -194,8 +194,11 @@ public class Main {
 
     static void sumaTotalCooperativa() {
         System.out.println("===========Saldo Total Cooperativa ===========");
-        double saldoCooperativa = cooperativa.getCuentas().stream().mapToDouble(Cuenta::getSaldo).sum();
+        double saldoCooperativa = cooperativa.getCuentas().stream()
+                .map(Cuenta::getSaldo)
+                .reduce(0.0, (a, b) -> a + b);
         System.out.println("\n💹 Suma total de saldos: $" + String.format("%,.2f", saldoCooperativa));
+
     }
     static void realizarDeposito(){
         try {
