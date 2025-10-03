@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class Main {
     static Scanner scanner = new Scanner(System.in);
     static Cooperativa cooperativa = new Cooperativa("COOPRKC", "avenida avestruz", "007");
-    static List<CuentaAhorros> cuentasGlobales = new ArrayList<>();
+
     public static void main(String[] args) {
         int opcion=0;
 
@@ -38,8 +38,16 @@ public class Main {
                     break;
                 case 4:
                     //realizarDeposito();
+                    break;
                 case 5:
                     asignarCuenta();
+                    break;
+                case 6:
+                    filtarCuentas();
+                    break;
+                case 8:
+                    listaCuentas();
+                    break;
 
 
             }
@@ -87,7 +95,7 @@ public class Main {
         double saldoCooperativa =cooperativa.getSocios().stream().flatMap(socio -> socio.getListaCuenta().stream()).map(Cuenta::getSaldo).reduce(0.0,(a,b)->a+b);
         System.out.println("\n💹 Suma total de saldos: $" + String.format("%,.2f", saldoCooperativa));
         System.out.println("======================");
-        System.out.println("Cooperativa info: " + cooperativa);
+        //System.out.println("Cooperativa info: " + cooperativa);
 
 
     }
@@ -98,6 +106,8 @@ public class Main {
         System.out.println("3. Realizar Retiro");
         System.out.println("4. Realizar Deposito");
         System.out.println("5. Asignar Cuenta");
+        System.out.println("6. Filtar Cuenta");
+        System.out.println("8. Lista de Cuentas");
         System.out.println("9. Salir");
         System.out.print("Selecciona una opción: ");
     }
@@ -114,7 +124,6 @@ public class Main {
     static Socio buscarSocio(String cedula){
         return cooperativa.getSocios().stream().filter(socio -> socio.getCedula().equals(cedula)).findFirst().orElse(null);
     }
-
     static void asignarCuenta(){
         System.out.println("Ingrese la cedula del socio");
         String cedula = scanner.nextLine();
@@ -129,7 +138,11 @@ public class Main {
             System.out.println("Error esta cuenta ya esta asignada");
             return;
         }
-        CuentaAhorros cuenta = cuentasGlobales.stream().filter(cuentas -> cuentas.getNumeroCuenta().equals(numeroCuenta)).findFirst().orElse(null);
+        Cuenta cuenta = cooperativa.getCuentas().stream()
+                .filter(c -> c.getNumeroCuenta().equals(numeroCuenta))
+                .findFirst()
+                .orElse(null);
+
         if(cuenta == null){
             System.out.println("No existe esta cuenta");
             return;
@@ -139,7 +152,6 @@ public class Main {
 
 
     }
-
     static CuentaAhorros crearCuenta(){
         System.out.println("Ingrese numero de cuenta");
         String numeroCuenta = scanner.nextLine();
@@ -152,7 +164,7 @@ public class Main {
         double interes = scanner.nextDouble();
         scanner.nextLine();
         CuentaAhorros nuevaCuenta = new CuentaAhorros(numeroCuenta,saldo,tipo,interes);
-        cuentasGlobales.add(nuevaCuenta);
+        cooperativa.agregarCuentaGlobal(nuevaCuenta);
         System.out.println("Cuenta creada exitosamente: " + numeroCuenta);
         return nuevaCuenta;
 
@@ -162,6 +174,24 @@ public class Main {
                 .anyMatch(cuenta -> cuenta.getNumeroCuenta().equals(numeroCuenta));
 
     }
+    static void filtarCuentas(){
+        System.out.println("===========Filtro de Cuentas ===========");
+        System.out.println("Ingrese el Monto para filtrar");
+        double monto = scanner.nextDouble();
+        scanner.nextLine();
+        cooperativa.getCuentas().stream()
+                .filter(cuenta -> cuenta.getSaldo() > monto)
+                .map(cuenta -> String.format("💳 Cuenta Nº %s | Saldo: $%,.2f", cuenta.getNumeroCuenta(), cuenta.getSaldo()))
+                .forEach(System.out::println);
+    }
+    static void listaCuentas(){
+        System.out.println("Mostrando todas las cuentas:");
+        cooperativa.getCuentas().forEach(cuenta -> System.out.println(
+                String.format("Cuenta %s | Saldo: $%,.2f", cuenta.getNumeroCuenta(), cuenta.getSaldo())
+        ));
+
+    }
+
 
 
 

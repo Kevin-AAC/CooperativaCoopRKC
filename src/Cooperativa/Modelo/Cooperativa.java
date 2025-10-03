@@ -8,6 +8,7 @@ public class Cooperativa {
     private String direccion;
     private String codigo;
     private List<Socio> socios = new ArrayList<>();
+    private List<Cuenta> cuentasGlobales = new ArrayList<>();
     public Cooperativa(String nombre, String direccion, String codigo) {
         this.nombre = nombre;
         this.direccion = direccion;
@@ -21,10 +22,14 @@ public class Cooperativa {
     public List<Socio> getSocios(){
         return socios;
     }
+    public void agregarCuentaGlobal(Cuenta cuenta){
+        cuentasGlobales.add(cuenta);
+    }
 
-     public List<Cuenta> getCuentas(){
-        return socios.stream().flatMap(cuentas -> cuentas.getListaCuenta().stream()).toList();
-     }
+    public List<Cuenta> getCuentas() {
+        return cuentasGlobales;
+    }
+
 
     @Override
     public String toString() {
