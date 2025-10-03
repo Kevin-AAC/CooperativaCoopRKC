@@ -34,7 +34,7 @@ public class Main {
                     crearCuenta();
                     break;
                 case 3:
-                    //realizarRetiro();
+                    realizarRetiro();
                     break;
                 case 4:
                     //realizarDeposito();
@@ -134,45 +134,29 @@ public class Main {
 
     }
 
-    static void realizarRetiro() {
-
+    static void realizarRetiro(){
         try {
             System.out.println("Realizar retiro ");
+
+
             System.out.print("Ingrese el número de cuenta: ");
             String numero = scanner.nextLine();
 
-            CuentaAhorros cuenta = cuentasGlobales.stream()
+            Cuenta cuenta = cooperativa.getCuentas().stream()
                     .filter(c -> c.getNumeroCuenta().equals(numero))
                     .findFirst()
                     .orElse(null);
 
             if (cuenta == null) {
                 throw new IllegalArgumentException("No existe la cuenta " + numero);
+
             }
+            System.out.println("Ingrese el valor a retirar");
             double monto = scanner.nextDouble();
             scanner.nextLine();
+            cuenta.retirar(monto);
 
-            boolean exito = cuenta.retirar(monto);
-            if (exito) {
-                System.out.println("✅ Retiro exitoso. Saldo restante: " + cuenta.getSaldo());
-            } else {
-                System.out.println("❌ No se pudo realizar el retiro.");
-            }
-            System.out.print("¿Desea conocer su saldo? (s/n): ");
-            char verSaldo = scanner.next().charAt(0);
-            if (verSaldo == 's' || verSaldo == 'S') {
-                System.out.println("💰 Saldo actual: " + cuentaSeleccionada.getSaldo()); }
-            System.out.print("Ingrese el monto a retirar: ");
-            double monto = scanner.nextDouble();
-            scanner.nextLine();
 
-            boolean exito = cuenta.retirar(monto);
-
-            if (exito) {
-                System.out.println("✅ Retiro exitoso. Saldo restante: " + cuenta.getSaldo());
-            } else {
-                System.out.println("❌ No se pudo realizar el retiro.");
-            }
 
         } catch (Exception e) {
             System.out.println("❌ Error: " + e.getMessage());
@@ -218,4 +202,4 @@ public class Main {
 
      }
 
-}
+
