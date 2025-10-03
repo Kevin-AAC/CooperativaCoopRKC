@@ -8,6 +8,7 @@ import Cooperativa.Transacciones.Deposito;
 import Cooperativa.Transacciones.Retiro;
 
 
+import javax.xml.transform.Source;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -21,7 +22,7 @@ public class Main {
     public static void main(String[] args) {
         int opcion=0;
 
-        while(opcion != 7){
+        while(opcion != 9){
             mostrarMenu();
             opcion = scanner.nextInt();
             scanner.nextLine();
@@ -77,14 +78,7 @@ public class Main {
         System.out.println("💳 Cuenta " + cuenta2.getNumeroCuenta() +
                 " | 📈 Interés E.A: " + (cuenta2.getInteres() * 100) + "%" +
                 " | 💰 Saldo: $" + String.format("%,.2f", cuenta2.getSaldo()));
-        /*
-        System.out.println("====================================");
-        cooperativa.agregarSocio(socio1);
-        cooperativa.agregarSocio(socio2);
-        cooperativa.agregarSocio(socio3);
-        cooperativa.agregarSocio(socio4);
-        System.out.println("📋 Socios registrados:");
-         */
+
 
         cooperativa.getSocios().stream().map(Socio::getNombre).forEach(System.out::println);
         System.out.println("===========Filtro de Cuentas ===========");
@@ -104,6 +98,7 @@ public class Main {
         System.out.println("3. Realizar Retiro");
         System.out.println("4. Realizar Deposito");
         System.out.println("5. Asignar Cuenta");
+        System.out.println("9. Salir");
         System.out.print("Selecciona una opción: ");
     }
     static void agregarSocio(){
@@ -130,13 +125,18 @@ public class Main {
         }
         System.out.println("Ingrese el numero de Cuenta");
         String numeroCuenta = scanner.nextLine();
-        CuentaAhorros cuenta  = cuentasGlobales.stream().filter(cuentaAhorros -> cuentaAhorros.getNumeroCuenta().equals(numeroCuenta)).findFirst().orElse(null);
+        if(verificarCuentaEnSocios(numeroCuenta)){
+            System.out.println("Error esta cuenta ya esta asignada");
+            return;
+        }
+        CuentaAhorros cuenta = cuentasGlobales.stream().filter(cuentas -> cuentas.getNumeroCuenta().equals(numeroCuenta)).findFirst().orElse(null);
         if(cuenta == null){
-            System.out.println("No existe la cuenta"+ numeroCuenta);
+            System.out.println("No existe esta cuenta");
             return;
         }
         socio.agregarCuenta(cuenta);
-        System.out.println("Cuenta"+ cuenta.getNumeroCuenta()+" Asignada correctamente");
+        System.out.println("Cuenta "+numeroCuenta+" Asignada Correctamente al socio "+ socio.getNombre());
+
 
     }
 
@@ -155,6 +155,11 @@ public class Main {
         cuentasGlobales.add(nuevaCuenta);
         System.out.println("Cuenta creada exitosamente: " + numeroCuenta);
         return nuevaCuenta;
+
+    }
+    static boolean verificarCuentaEnSocios(String numeroCuenta){
+        return cooperativa.getSocios().stream().flatMap(socio -> socio.getListaCuenta().stream())
+                .anyMatch(cuenta -> cuenta.getNumeroCuenta().equals(numeroCuenta));
 
     }
 
