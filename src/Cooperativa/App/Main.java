@@ -10,6 +10,7 @@ import Cooperativa.Transacciones.Retiro;
 
 import javax.xml.transform.Source;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -20,45 +21,51 @@ public class Main {
     static Cooperativa cooperativa = new Cooperativa("COOPRKC", "avenida avestruz", "007");
 
     public static void main(String[] args) {
-        int opcion = 0;
 
+        int opcion = 0;
         while (opcion != 9) {
             mostrarMenu();
-            opcion = scanner.nextInt();
-            scanner.nextLine();
-            switch (opcion) {
-                case 1:
-                    agregarSocio();
-                    break;
-                case 2:
-                    crearCuenta();
-                    break;
-                case 3:
-                    realizarRetiro();
-                    break;
-                case 4:
-                    realizarDeposito();
-                    break;
-                case 5:
-                    asignarCuenta();
-                    break;
-                case 6:
-                    filtarCuentas();
-                    break;
-                case 7:
-                    listaSocios();
-                    break;
-                case 8:
-                    sumaTotalCooperativa();
-                    break;
-
-
+            try {
+                opcion = scanner.nextInt();
+                scanner.nextLine();  // limpiar buffer
+                switch (opcion) {
+                    case 1:
+                        agregarSocio();
+                        break;
+                    case 2:
+                        crearCuenta();
+                        break;
+                    case 3:
+                        realizarRetiro();
+                        break;
+                    case 4:
+                        realizarDeposito();
+                        break;
+                    case 5:
+                        asignarCuenta();
+                        break;
+                    case 6:
+                        filtarCuentas();
+                        break;
+                    case 7:
+                        listaSocios();
+                        break;
+                    case 8:
+                        sumaTotalCooperativa();
+                        break;
+                    case 9:
+                        System.out.println("Saliendo...");
+                        break;
+                    default:
+                        System.out.println("Opción inválida, inténtelo de nuevo.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Error: Por favor ingresa un número válido.");
+                scanner.nextLine();  // limpiar entrada incorrecta
             }
         }
-
     }
-
-    static void mostrarMenu() {
+        static void mostrarMenu() {
         System.out.println("=== Cooperativa RKC ===");
         System.out.println("1. Ingresar Socio");
         System.out.println("2. Crear Cuenta");
