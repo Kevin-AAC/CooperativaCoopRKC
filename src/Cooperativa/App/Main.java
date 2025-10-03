@@ -37,7 +37,7 @@ public class Main {
                     realizarRetiro();
                     break;
                 case 4:
-                    //realizarDeposito();
+                    realizarDeposito();
                     break;
                 case 5:
                     asignarCuenta();
@@ -137,8 +137,6 @@ public class Main {
     static void realizarRetiro(){
         try {
             System.out.println("Realizar retiro ");
-
-
             System.out.print("Ingrese el número de cuenta: ");
             String numero = scanner.nextLine();
 
@@ -149,21 +147,15 @@ public class Main {
 
             if (cuenta == null) {
                 throw new IllegalArgumentException("No existe la cuenta " + numero);
-
             }
             System.out.println("Ingrese el valor a retirar");
             double monto = scanner.nextDouble();
             scanner.nextLine();
             cuenta.retirar(monto);
-
-
-
         } catch (Exception e) {
             System.out.println("❌ Error: " + e.getMessage());
         }
     }
-
-
     static boolean verificarCuentaEnSocios(String numeroCuenta) {
         return cooperativa.getSocios().stream().flatMap(socio -> socio.getListaCuenta().stream())
                 .anyMatch(cuenta -> cuenta.getNumeroCuenta().equals(numeroCuenta));
@@ -198,8 +190,29 @@ public class Main {
         double saldoCooperativa = cooperativa.getCuentas().stream().mapToDouble(Cuenta::getSaldo).sum();
         System.out.println("\n💹 Suma total de saldos: $" + String.format("%,.2f", saldoCooperativa));
     }
+    static void realizarDeposito(){
+        try {
+            System.out.println("Realizar deposito ");
+            System.out.print("Ingrese el número de cuenta: ");
+            String numero = scanner.nextLine();
 
+            Cuenta cuenta = cooperativa.getCuentas().stream()
+                    .filter(c -> c.getNumeroCuenta().equals(numero))
+                    .findFirst()
+                    .orElse(null);
 
-     }
+            if (cuenta == null) {
+                throw new IllegalArgumentException("No existe la cuenta " + numero);
+            }
+            System.out.println("Ingrese el valor a depositar");
+            double monto = scanner.nextDouble();
+            scanner.nextLine();
+            cuenta.deposito(monto);
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
+        }
+    }
+
+}
 
 
