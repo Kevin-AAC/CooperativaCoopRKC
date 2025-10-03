@@ -20,20 +20,20 @@ public class Main {
     static Cooperativa cooperativa = new Cooperativa("COOPRKC", "avenida avestruz", "007");
 
     public static void main(String[] args) {
-        int opcion=0;
+        int opcion = 0;
 
-        while(opcion != 9){
+        while (opcion != 9) {
             mostrarMenu();
             opcion = scanner.nextInt();
             scanner.nextLine();
-            switch (opcion){
+            switch (opcion) {
                 case 1:
                     agregarSocio();
                     break;
                 case 2:
                     crearCuenta();
                     break;
-                case  3:
+                case 3:
                     //realizarRetiro();
                     break;
                 case 4:
@@ -57,7 +57,8 @@ public class Main {
         }
 
     }
-    static void mostrarMenu(){
+
+    static void mostrarMenu() {
         System.out.println("=== Cooperativa RKC ===");
         System.out.println("1. Ingresar Socio");
         System.out.println("2. Crear Cuenta");
@@ -70,30 +71,33 @@ public class Main {
         System.out.println("9. Salir");
         System.out.print("Selecciona una opción: ");
     }
-    static void agregarSocio(){
+
+    static void agregarSocio() {
         System.out.println("Ingrese el nombre del socio");
         String nombre = scanner.nextLine();
         System.out.println("Ingrese la cédula del socio");
         String cedula = scanner.nextLine();
-        Socio nuevoSocio = new Socio(nombre,cedula);
+        Socio nuevoSocio = new Socio(nombre, cedula);
         cooperativa.agregarSocio(nuevoSocio);
         System.out.println("Socio agregado exitosamente: " + nuevoSocio);
 
     }
-    static Socio buscarSocio(String cedula){
+
+    static Socio buscarSocio(String cedula) {
         return cooperativa.getSocios().stream().filter(socio -> socio.getCedula().equals(cedula)).findFirst().orElse(null);
     }
-    static void asignarCuenta(){
+
+    static void asignarCuenta() {
         System.out.println("Ingrese la cedula del socio");
         String cedula = scanner.nextLine();
         Socio socio = buscarSocio(cedula);
-        if(socio == null){
+        if (socio == null) {
             System.out.println("socio no encontrado");
             return;
         }
         System.out.println("Ingrese el numero de Cuenta");
         String numeroCuenta = scanner.nextLine();
-        if(verificarCuentaEnSocios(numeroCuenta)){
+        if (verificarCuentaEnSocios(numeroCuenta)) {
             System.out.println("Error esta cuenta ya esta asignada");
             return;
         }
@@ -102,16 +106,17 @@ public class Main {
                 .findFirst()
                 .orElse(null);
 
-        if(cuenta == null){
+        if (cuenta == null) {
             System.out.println("No existe esta cuenta");
             return;
         }
         socio.agregarCuenta(cuenta);
-        System.out.println("Cuenta "+numeroCuenta+" Asignada Correctamente al socio "+ socio.getNombre());
+        System.out.println("Cuenta " + numeroCuenta + " Asignada Correctamente al socio " + socio.getNombre());
 
 
     }
-    static CuentaAhorros crearCuenta(){
+
+    static CuentaAhorros crearCuenta() {
         System.out.println("Ingrese numero de cuenta");
         String numeroCuenta = scanner.nextLine();
         System.out.println("Ingrese Saldo");
@@ -122,18 +127,66 @@ public class Main {
         System.out.println("Ingrese la taza de interes");
         double interes = scanner.nextDouble();
         scanner.nextLine();
-        CuentaAhorros nuevaCuenta = new CuentaAhorros(numeroCuenta,saldo,tipo,interes);
+        CuentaAhorros nuevaCuenta = new CuentaAhorros(numeroCuenta, saldo, tipo, interes);
         cooperativa.agregarCuentaGlobal(nuevaCuenta);
         System.out.println("Cuenta creada exitosamente: " + numeroCuenta);
         return nuevaCuenta;
 
     }
-    static boolean verificarCuentaEnSocios(String numeroCuenta){
+
+    static void realizarRetiro() {
+
+        try {
+            System.out.println("Realizar retiro ");
+            System.out.print("Ingrese el número de cuenta: ");
+            String numero = scanner.nextLine();
+
+            CuentaAhorros cuenta = cuentasGlobales.stream()
+                    .filter(c -> c.getNumeroCuenta().equals(numero))
+                    .findFirst()
+                    .orElse(null);
+
+            if (cuenta == null) {
+                throw new IllegalArgumentException("No existe la cuenta " + numero);
+            }
+            double monto = scanner.nextDouble();
+            scanner.nextLine();
+
+            boolean exito = cuenta.retirar(monto);
+            if (exito) {
+                System.out.println("✅ Retiro exitoso. Saldo restante: " + cuenta.getSaldo());
+            } else {
+                System.out.println("❌ No se pudo realizar el retiro.");
+            }
+            System.out.print("¿Desea conocer su saldo? (s/n): ");
+            char verSaldo = scanner.next().charAt(0);
+            if (verSaldo == 's' || verSaldo == 'S') {
+                System.out.println("💰 Saldo actual: " + cuentaSeleccionada.getSaldo()); }
+            System.out.print("Ingrese el monto a retirar: ");
+            double monto = scanner.nextDouble();
+            scanner.nextLine();
+
+            boolean exito = cuenta.retirar(monto);
+
+            if (exito) {
+                System.out.println("✅ Retiro exitoso. Saldo restante: " + cuenta.getSaldo());
+            } else {
+                System.out.println("❌ No se pudo realizar el retiro.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
+        }
+    }
+
+
+    static boolean verificarCuentaEnSocios(String numeroCuenta) {
         return cooperativa.getSocios().stream().flatMap(socio -> socio.getListaCuenta().stream())
                 .anyMatch(cuenta -> cuenta.getNumeroCuenta().equals(numeroCuenta));
 
     }
-    static void filtarCuentas(){
+
+    static void filtarCuentas() {
         System.out.println("===========Filtro de Cuentas ===========");
         System.out.println("Ingrese el Monto para filtrar");
         double monto = scanner.nextDouble();
@@ -143,23 +196,26 @@ public class Main {
                 .map(cuenta -> String.format("💳 Cuenta Nº %s | Saldo: $%,.2f", cuenta.getNumeroCuenta(), cuenta.getSaldo()))
                 .forEach(System.out::println);
     }
-    static void listaCuentas(){
+
+    static void listaCuentas() {
         System.out.println("Mostrando todas las cuentas:");
         cooperativa.getCuentas().forEach(cuenta -> System.out.println(
                 String.format("Cuenta %s | Saldo: $%,.2f", cuenta.getNumeroCuenta(), cuenta.getSaldo())
         ));
 
     }
-    static void listaSocios(){
+
+    static void listaSocios() {
         cooperativa.getSocios().stream().map(Socio::getNombre).forEach(System.out::println);
     }
-    static void  sumaTotalCooperativa(){
+
+    static void sumaTotalCooperativa() {
         System.out.println("===========Saldo Total Cooperativa ===========");
-        double saldoCooperativa =cooperativa.getCuentas().stream().mapToDouble(Cuenta::getSaldo).sum();
+        double saldoCooperativa = cooperativa.getCuentas().stream().mapToDouble(Cuenta::getSaldo).sum();
         System.out.println("\n💹 Suma total de saldos: $" + String.format("%,.2f", saldoCooperativa));
     }
 
 
-
+     }
 
 }
