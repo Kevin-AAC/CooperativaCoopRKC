@@ -7,6 +7,7 @@ import Cooperativa.Modelo.Socio;
 import Cooperativa.Transacciones.Deposito;
 import Cooperativa.Transacciones.Retiro;
 
+import javax.swing.text.AbstractDocument;
 import java.awt.print.Printable;
 import java.util.Scanner;
 
@@ -15,9 +16,34 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        Socio socio1 = new Socio("Carpintero", "9876543");
+        Scanner scanner = new Scanner(System.in);
+        int opcion=0;
+
+        while(opcion != 4){
+            mostrarMenu();
+            opcion = scanner.nextInt();
+            scanner.nextLine();
+            switch (opcion){
+                case 1:
+                    agregarSocio();
+                    break;
+                case 2:
+                    crearCuenta();
+                    break;
+                case  3:
+                    realizarRetiro();
+                    break;
+                case 4:
+                    realizarDeposito();
+                case 5:
+
+            }
+        }
+
+
         Cooperativa cooperativa = new Cooperativa("COOPRKC", "avenida avestruz", "007");
 
+        Socio socio1 = new Socio("Carpintero", "9876543");
         Socio socio2 = new Socio("laura", "9876543");
         Socio socio3 = new Socio("Carlos", "57532545");
         Socio socio4 = new Socio("Jesus", "00120200");
@@ -69,6 +95,20 @@ public class Main {
         System.out.println("======================");
         System.out.println("Cooperativa info: " + cooperativa);
 
+
+
+
+
+
+
+    }
+    static void mostrarMenu(){
+        System.out.println("=== Cooperativa RKC ===");
+        System.out.println("1. Ingresar Socio");
+        System.out.println("2. Prestar libro");
+        System.out.println("3. Devolver libro");
+        System.out.println("4. Salir");
+        System.out.print("Selecciona una opción: ");
     }
 
 }
